@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>r</title>
+<style>
+  body{font-family:sans-serif;margin:40px;font-size:20px}
+  input{font-size:20px;padding:8px;width:90%;max-width:600px}
+  button{font-size:20px;padding:8px 20px;margin-top:12px}
+</style>
+</head>
+<body>
+<p>enter a URL, hit go:</p>
+<input id="u" type="text" value="http://192.168.1.176:8000" autofocus>
+<br>
+<button onclick="go()">go</button>
+<script>
+function go(){
+  var v=document.getElementById("u").value.trim();
+  if(!v) return;
+  // add http:// if the person didn't type a scheme
+  if(!/^https?:\/\//i.test(v)) v="http://"+v;
+  window.location.href=v;
+}
+// allow Enter key to submit
+document.getElementById("u").addEventListener("keydown",function(e){
+  if(e.key==="Enter") go();
+});
+// optional: r.html?u=<url> auto-fills the box
+var q=new URLSearchParams(location.search).get("u");
+if(q){ document.getElementById("u").value=q; }
+</script>
+</body>
+</html>
